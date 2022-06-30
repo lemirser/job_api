@@ -9,6 +9,7 @@ from src.constants.http_status_codes import (
     HTTP_401_UNAUTHORIZED,
     HTTP_409_CONFLICT,
 )
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 
 auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 
@@ -80,3 +81,20 @@ def register():
         jsonify({"message": "User was created successfully!", "user": {"username": username, "email": email}}),
         HTTP_201_CREATED,
     )
+
+
+# In Postman, use the Bearer Token under Authorization > Token Type to insert the "access token"
+@auth.get("/me")
+@jwt_required()  # A Token is required before the url can be accessed
+def me():
+    """
+    Displays the user's information if they have the correct JWT and they exists in the database.
+
+    Returns:
+        jsonify: Username and email
+    """
+    user_id = get_jwt_identity()  # Display the identity of the JWT for the current session
+
+    user = User.query.filter_by(id=user_id).first()
+
+    return jsonify({"username": user.username, "email": user.email}), HTTP_200_OK
