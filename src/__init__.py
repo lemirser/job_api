@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, redirect
 import os
+from src.database import db
+from flask_sqlalchemy import SQLAlchemy
 
 
 def create_app(test_config=None):
@@ -21,4 +23,5 @@ def create_app(test_config=None):
     db.app = app
     db.init_app(app)
 
-    JWTManager(app)  # For tokens
+    return app
+    # JWTManager(app)  # For tokens
