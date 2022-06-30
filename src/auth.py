@@ -98,3 +98,37 @@ def me():
     user = User.query.filter_by(id=user_id).first()
 
     return jsonify({"username": user.username, "email": user.email}), HTTP_200_OK
+
+
+@auth.post("/login")
+def login():
+    """
+    Generates the Refresh & Access token based on the user.id if the user exists in the database.
+
+    Returns:
+        jsonify: Username, email, refresh, and access tokens.
+    """
+    email = request.json.get("email", "")
+    password = request.json.get("password", "")
+
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        # Checks the hashed password to the inputted password
+        is_pass_correct = check_password_hash(user.password, password)
+
+        if is_pass_correct:
+            # Generate Tokens
+            refresh = create_refresh_token(identity=user.id)  # Used to generate new access token
+            access = create_access_token(identity=user.id)  # Used to "access" the server
+
+            return (
+                jsonify(
+                    {"user": {"refresh": refresh, "access": access, "username": user.username, "email": user.email}}
+                ),
+                HTTP_200_OK,
+            )
+        else:
+            return jsonify({"error": "Incorrect password!"}), HTTP_401_UNAUTHORIZED
+    else:
+        return jsonify({"error": "User doesn't exists!"}), HTTP_401_UNAUTHORIZED
