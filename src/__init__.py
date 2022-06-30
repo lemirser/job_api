@@ -31,6 +31,8 @@ def create_app(test_config=None):
     # Register the blueprints as an endpoint for the API
     app.register_blueprint(auth)
 
+    JWTManager(app)  # For tokens
+
     @app.errorhandler(HTTP_404_NOT_FOUND)  # You can add errorhandler for any specific errors.
     def handle_404(e):
         """
@@ -43,5 +45,16 @@ def create_app(test_config=None):
             json: Error message for the 404 status."""
         return jsonify({"error": "Not found."}), HTTP_404_NOT_FOUND
 
+    @app.errorhandler(HTTP_500_INTERNAL_SERVER_ERROR)
+    def handle_500(e):
+        """
+        Returns a json when a 500 status was encountered.
+
+        Argument:
+            e (Required): Exception message
+
+        Return
+            json: Error message for the 500 status."""
+        return jsonify({"error": "It's not you, it's us. We're working on it."}), HTTP_500_INTERNAL_SERVER_ERROR
+
     return app
-    # JWTManager(app)  # For tokens
