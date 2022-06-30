@@ -2,6 +2,7 @@ from flask import Flask, jsonify, redirect
 import os
 from src.database import db
 from flask_sqlalchemy import SQLAlchemy
+from src.auth import auth
 
 
 def create_app(test_config=None):
