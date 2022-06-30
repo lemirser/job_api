@@ -2,6 +2,11 @@ from flask import Flask, jsonify, redirect
 import os
 from src.database import db
 from src.auth import auth
+from flask_jwt_extended import JWTManager
+from src.constants.http_status_codes import (
+    HTTP_404_NOT_FOUND,
+    HTTP_500_INTERNAL_SERVER_ERROR,
+)
 
 
 def create_app(test_config=None):
@@ -25,6 +30,18 @@ def create_app(test_config=None):
 
     # Register the blueprints as an endpoint for the API
     app.register_blueprint(auth)
+
+    @app.errorhandler(HTTP_404_NOT_FOUND)  # You can add errorhandler for any specific errors.
+    def handle_404(e):
+        """
+        Returns a json when a 404 status was encountered.
+
+        Argument:
+            e (Required): Exception message
+
+        Return
+            json: Error message for the 404 status."""
+        return jsonify({"error": "Not found."}), HTTP_404_NOT_FOUND
 
     return app
     # JWTManager(app)  # For tokens
