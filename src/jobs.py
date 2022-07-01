@@ -28,6 +28,8 @@ def fetch_job():
                 # Fetch all company name in the webpage that are under the "job"
                 company_name = job_post.find("h3", class_="joblist-comp-name").text.replace("(More Jobs)", "").strip()
 
+                skills = job_post.find("span", class_="srp-skills").text.strip()
+
 
 if __name__ == "__main__":
     fetch_job()
