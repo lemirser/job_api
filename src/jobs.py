@@ -38,17 +38,20 @@ def fetch_job():
                 # Fetch the link for the job posting.
                 job_posting = job_post.header.h2.a["href"]
 
-                # Cleans all the "skills" with "  ,  "
-                if "  ,  " in skills:
-                    _ = skills.split("  ,  ")
+                # Cleans all incorrectly formatted "skills"
+                temp_skills = skills.split(",")
+                _ = []
+                for skill in temp_skills:
+                    _.append(skill.strip().replace("  ", " ").replace(" ,", ",").title())
 
-                    skills = (", ".join(_)).replace("  /  ", " / ").replace(" ,", ",").title().strip()
+                    skills = ", ".join(_)
 
                 unfamiliar_skills = []
                 if any(
                     unfamiliar_skill in skills for unfamiliar_skill in unfamiliar_skills
                 ):  # Don't include job post with unfamiliar skill
-                    continue  # If the unfamiliar skill is in "skills", it will skip it because that's how "continue" works
+                    # If the unfamiliar skill is in "skills", it will skip it because that's how "continue" works
+                    continue
                 # If the condition is true, skip/ do not display the result and start again with the condition.
 
                 data.append(
