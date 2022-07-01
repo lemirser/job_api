@@ -17,7 +17,7 @@ def fetch_job():
     soup = BeautifulSoup(html_text, "lxml")
 
     # Fetch job list
-    job_posts = soup.find("li", class_="clearfix job-bx wht-shd-bx")
+    job_posts = soup.find_all("li", class_="clearfix job-bx wht-shd-bx")
 
     if job_posts:
         for job_post in job_posts:
@@ -25,9 +25,8 @@ def fetch_job():
 
             # Only include jobs that were posted few days ago from the current day
             if "few" in publish_date.text.strip():
-                pass
-
-        print(job_post.text)
+                # Fetch all company name in the webpage that are under the "job"
+                company_name = job_post.find("h3", class_="joblist-comp-name").text.replace("(More Jobs)", "").strip()
 
 
 if __name__ == "__main__":
