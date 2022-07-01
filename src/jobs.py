@@ -30,6 +30,17 @@ def fetch_job():
 
                 skills = job_post.find("span", class_="srp-skills").text.strip()
 
+                # Fetch the link for the job posting.
+                job_posting = job_post.header.h2.a["href"]
+
+                # Cleans all the "skills" with "  ,  "
+                if "  ,  " in skills:
+                    _ = skills.split("  ,  ")
+
+                    skills = (", ".join(_)).replace("  /  ", " / ").replace(" ,", ",").title().strip()
+
+        # print(job_post.text)
+
 
 if __name__ == "__main__":
     fetch_job()
