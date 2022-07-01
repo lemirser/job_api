@@ -13,11 +13,21 @@ def fetch_job():
         f"https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords={job_position}&txtLocation="
     ).text
 
+    # Initialize BeautifulSoup
     soup = BeautifulSoup(html_text, "lxml")
 
-    job = soup.find("li", class_="clearfix job-bx wht-shd-bx")
+    # Fetch job list
+    job_posts = soup.find("li", class_="clearfix job-bx wht-shd-bx")
 
-    print(job.text)
+    if job_posts:
+        for job_post in job_posts:
+            publish_date = job_post.find("span", class_="sim-posted")
+
+            # Only include jobs that were posted few days ago from the current day
+            if "few" in publish_date.text.strip():
+                pass
+
+        print(job_post.text)
 
 
 if __name__ == "__main__":
