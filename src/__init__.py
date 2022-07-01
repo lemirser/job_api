@@ -2,6 +2,7 @@ from flask import Flask, jsonify, redirect
 import os
 from src.database import db
 from src.auth import auth
+from src.jobs import job_post
 from flask_jwt_extended import JWTManager
 from src.constants.http_status_codes import (
     HTTP_404_NOT_FOUND,
@@ -30,6 +31,7 @@ def create_app(test_config=None):
 
     # Register the blueprints as an endpoint for the API
     app.register_blueprint(auth)
+    app.register_blueprint(job_post)
 
     JWTManager(app)  # For tokens
 
