@@ -39,7 +39,17 @@ def fetch_job():
 
                     skills = (", ".join(_)).replace("  /  ", " / ").replace(" ,", ",").title().strip()
 
-        # print(job_post.text)
+                unfamiliar_skills = ["Java", "Bi", "Aws"]
+                if any(
+                    unfamiliar_skill in skills for unfamiliar_skill in unfamiliar_skills
+                ):  # Don't include job post with unfamiliar skill
+                    continue  # If the unfamiliar skill is in "skills", it will skip it because that's how "continue" works
+                # If the condition is true, skip/ do not display the result and start again with the condition.
+
+                print(f"Company Name: {company_name.title()}")
+                print(f"Skills: {skills}")
+                print(f"More info: {job_posting}")
+                print("")
 
 
 if __name__ == "__main__":
