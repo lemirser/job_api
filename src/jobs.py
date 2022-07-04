@@ -10,7 +10,12 @@ job_post = Blueprint("jobs", __name__, url_prefix="/api/v1/jobs")
 
 @job_post.get("/fetch")
 def fetch_job():
-    job_position = "data+engineer"
+
+    if request.args.get("position") is None:
+        job_position = "data engineer"
+    else:
+        job_position = request.args.get("position")
+
     html_text = requests.get(
         # .text will not display the RESPONSE code from the website
         f"https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords={job_position}&txtLocation="
