@@ -14,7 +14,13 @@ def fetch_job():
     if request.args.get("position") is None:
         job_position = "data engineer"
     else:
-        job_position = request.args.get("position")
+        job_position = request.args.get("position").replace(" ", "%20")
+
+    unfamiliar_skills = []
+    if request.args.get("skills"):
+        _ = request.args.get("skills").split(",")
+        for item in _:
+            unfamiliar_skills.append((item.title()))
 
     html_text = requests.get(
         # .text will not display the RESPONSE code from the website
@@ -51,7 +57,6 @@ def fetch_job():
 
                     skills = ", ".join(_)
 
-                unfamiliar_skills = []
                 if any(
                     unfamiliar_skill in skills for unfamiliar_skill in unfamiliar_skills
                 ):  # Don't include job post with unfamiliar skill
