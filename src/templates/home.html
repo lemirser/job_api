@@ -15,11 +15,10 @@
 
 <body style="height: 100%">
     <div style="display:flex; align-items: center; height:100%; justify-content: center;">
-        <!---style="display:flex;justify-content:center;"-->
-        <form class="row g-3">
+        <form class="row g-3" action='{{url_for("home.fetch_input")}}' method="post">
             <div class="col-auto">
                 <label for="job_post" class="visually-hidden">Job post</label>
-                <input type="search" class="form-control" id="job_post" placeholder="Search jobs">
+                <input type="text" class="form-control" id="job_post" placeholder="Search jobs" name="job_post">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3">Search</button>
