@@ -76,8 +76,3 @@ def fetch_job():
             jsonify({"data": data}),
             HTTP_200_OK,
         )
-        # print(post_details)
-
-
-if __name__ == "__main__":
-    fetch_job()
