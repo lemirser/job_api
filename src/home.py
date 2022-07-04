@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, request
+from flask import Blueprint, render_template, request
 
 home = Blueprint("home", __name__, url_prefix="/")
 
@@ -9,13 +9,15 @@ def home_page():
     return render_template("home.html")
 
 
-@home.route("/", methods=["POST", "GET"])
+@home.post("/")
 def fetch_input():
     """
     Retrieve the data from the job_post (name) input.
     """
     if request.method == "POST":
-        default_value = 0
-        data = request.form.get("job_post", default_value)
-        print(f"Data: {data} | Type: {type(data)}")
+        default_value = "data engineer"
+        job_search = request.form.get("job_post", default_value)
+        skill = request.form.get("skills", "")
+        print(f"Data: {job_search} | Type: {type(job_search)}")
+        print(f"Data: {skill} | Type: {type(skill)}")
     return render_template("home.html")
