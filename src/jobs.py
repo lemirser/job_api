@@ -3,22 +3,32 @@ from bs4 import BeautifulSoup
 from flask import Blueprint, jsonify, request
 import requests
 
+# from src.home import fetch_input
+
 from src.constants.http_status_codes import HTTP_200_OK
 
 job_post = Blueprint("jobs", __name__, url_prefix="/api/v1/jobs")
 
 
 @job_post.get("/fetch")
-def fetch_job():
+def fetch_job(job_search: str, skill: str):
 
-    if request.args.get("position") is None:
+    # if request.args.get("position") is None:
+    #     job_position = "data engineer"
+    # else:
+    #     job_position = request.args.get("position").replace(" ", "%20")
+    if job_search == "":
         job_position = "data engineer"
     else:
-        job_position = request.args.get("position").replace(" ", "%20")
+        job_position = job_search.replace(" ", "%20")
+    # job_position = job_search.replace(" ", "%20")
+    print(job_position)
 
     unfamiliar_skills = []
-    if request.args.get("skills"):
-        _ = request.args.get("skills").split(",")
+    # if request.args.get("skills"):
+    if skill:
+        # _ = request.args.get("skills").split(",")
+        _ = skill.split(",")
         for item in _:
             unfamiliar_skills.append((item.title()))
 
