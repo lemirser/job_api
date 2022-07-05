@@ -1,11 +1,10 @@
 import json
 from bs4 import BeautifulSoup
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
+from src.database import db, Skills
 import requests
 
-# from src.home import fetch_input
-
-from src.constants.http_status_codes import HTTP_200_OK
+from src.constants.http_status_codes import HTTP_200_OK, HTTP_201_CREATED
 
 job_post = Blueprint("jobs", __name__, url_prefix="/api/v1/jobs")
 
@@ -85,7 +84,25 @@ def fetch_job(job_search: str, skill: str):
 
 
 def add_skill(skills):
+    """Insert skills to the database
 
-    print(type(skills))
-    a = json.dumps(skills)
-    print(type(a))
+    Args:
+        skills (list): list of dictionary
+
+    Returns:
+        json: returns a successful message after inserting the data
+    """
+
+    _ = []
+    for skill in skills:
+        for i in skill["skills"].split(","):
+            for x in i.strip().split("/"):
+                _.append(x.lower().strip())
+
+    for i in _:
+        save_skills = Skills(name=i)
+
+        db.session.add(save_skills)
+        db.session.commit()
+
+    return jsonify({"message": "Data insert was successful!"}), HTTP_201_CREATED
