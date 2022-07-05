@@ -18,8 +18,6 @@ def fetch_job(job_search: str, skill: str):
     else:
         job_position = job_search.replace(" ", "%20")
 
-    print(job_position)
-
     unfamiliar_skills = []
 
     if skill:
