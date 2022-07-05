@@ -1,5 +1,6 @@
-from src.jobs import fetch_job
-from flask import Blueprint, render_template, request
+from src.jobs import fetch_job, add_skill
+from flask import Blueprint, render_template, request, jsonify, url_for, redirect
+import json
 
 home = Blueprint("home", __name__, url_prefix="/")
 
@@ -18,5 +19,9 @@ def fetch_input():
     if request.method == "POST":
         job_search = request.form.get("job_post")
         skill = request.form.get("skills", "")
-        return fetch_job(job_search, skill)
+
+        result = fetch_job(job_search, skill)
+
+        add_skill(result[0])
+
     return home_page()

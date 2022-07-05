@@ -75,7 +75,17 @@ def fetch_job(job_search: str, skill: str):
                     },
                 )
 
-        return (
-            jsonify({"data": data}),
-            HTTP_200_OK,
-        )
+        return [
+            data,
+            (
+                jsonify({"data": data}),
+                HTTP_200_OK,
+            ),
+        ]
+
+
+def add_skill(skills):
+
+    print(type(skills))
+    a = json.dumps(skills)
+    print(type(a))
