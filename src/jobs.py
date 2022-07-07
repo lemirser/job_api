@@ -106,3 +106,33 @@ def add_skill(skills):
         db.session.commit()
 
     return jsonify({"message": "Data insert was successful!"}), HTTP_201_CREATED
+
+
+@job_post.get("/fetch_skills")
+def get_skills():
+    """Fetch the top 10 skills
+
+    Returns:
+        dict: 10 skills with the most count
+    """
+
+    skills_count = {}
+    sorted_skills = {}
+
+    skill_s = Skills.query.all()
+
+    for item in skill_s:
+        # if item is in the dict, increment the value, if not set the value to 1
+        # item was converted to string since sqlalchemy returns a diffent type
+        skills_count[str(item)] = skills_count.get(str(item), 1) + 1
+
+    # Sorting keys with the highest value
+    sorted_keys = sorted(skills_count, key=skills_count.get, reverse=True)
+
+    for i in sorted_keys:
+        sorted_skills[i] = skills_count[i]
+
+    # Only save the top 10 skills
+    sorted_skills = dict(list(sorted_skills.items())[:10])
+
+    return [sorted_skills, (jsonify({"result": sorted_skills}), HTTP_200_OK)]

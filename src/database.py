@@ -27,7 +27,7 @@ class Skills(db.Model):
     name = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
-        return "Skill"
+        return self.name
 
 
 class Jobs(db.Model):
