@@ -4,6 +4,7 @@ from src.database import db
 from src.auth import auth
 from src.jobs import job_post
 from src.home import home
+from src.dashboard import dashboard
 from flask_jwt_extended import JWTManager
 from src.constants.http_status_codes import (
     HTTP_404_NOT_FOUND,
@@ -34,6 +35,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth)
     app.register_blueprint(job_post)
     app.register_blueprint(home)
+    app.register_blueprint(dashboard)
 
     JWTManager(app)  # For tokens
 
