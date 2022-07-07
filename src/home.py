@@ -1,6 +1,5 @@
 from src.jobs import fetch_job, add_skill
-from flask import Blueprint, render_template, request, jsonify, url_for, redirect
-import json
+from flask import Blueprint, render_template, request
 
 home = Blueprint("home", __name__, url_prefix="/")
 
