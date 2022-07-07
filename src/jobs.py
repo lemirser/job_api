@@ -108,7 +108,7 @@ def add_skill(skills):
     return jsonify({"message": "Data insert was successful!"}), HTTP_201_CREATED
 
 
-@job_post.get("/fetch_skills")
+# @job_post.get("/fetch_skills")
 def get_skills():
     """Fetch the top 10 skills
 
@@ -135,4 +135,4 @@ def get_skills():
     # Only save the top 10 skills
     sorted_skills = dict(list(sorted_skills.items())[:10])
 
-    return [sorted_skills, (jsonify({"result": sorted_skills}), HTTP_200_OK)]
+    return sorted_skills
