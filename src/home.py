@@ -1,6 +1,5 @@
 from src.jobs import fetch_job, add_skill
 from flask import Blueprint, render_template, request, redirect, url_for
-from src.dashboard import dash_page
 
 home = Blueprint("home", __name__, url_prefix="/")
 
@@ -24,4 +23,4 @@ def fetch_input():
 
         add_skill(result[0], job_search)
 
-    return redirect(url_for('dashboard.dash_page'))
+    return redirect(url_for("dashboard.dash_page"))
