@@ -83,11 +83,12 @@ def fetch_job(job_search: str, skill: str):
         ]
 
 
-def add_skill(skills):
-    """Insert skills to the database
+def add_skill(skills, job_title):
+    """Insert skills and job title to the database
 
     Args:
         skills (list): list of dictionary
+        job_title (str): job title inputted by the user
 
     Returns:
         json: returns a successful message after inserting the data
@@ -100,7 +101,7 @@ def add_skill(skills):
                 _.append(x.lower().strip())
 
     for i in _:
-        save_skills = Skills(name=i)
+        save_skills = Skills(name=i, job_title=job_title)
 
         db.session.add(save_skills)
         db.session.commit()
@@ -120,6 +121,7 @@ def get_skills():
     sorted_skills = {}
 
     skill_s = Skills.query.all()
+    print(skill_s)
 
     for item in skill_s:
         # if item is in the dict, increment the value, if not set the value to 1
@@ -136,3 +138,11 @@ def get_skills():
     sorted_skills = dict(list(sorted_skills.items())[:10])
 
     return sorted_skills
+
+
+def fetch_job_title(job_title: str):
+    return job_title
+
+
+def post_job_title():
+    return fetch_job()

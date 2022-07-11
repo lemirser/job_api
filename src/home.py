@@ -1,4 +1,4 @@
-from src.jobs import fetch_job, add_skill
+from src.jobs import fetch_job, add_skill, fetch_job_title
 from flask import Blueprint, render_template, request
 
 home = Blueprint("home", __name__, url_prefix="/")
@@ -21,6 +21,6 @@ def fetch_input():
 
         result = fetch_job(job_search, skill)
 
-        add_skill(result[0])
+        add_skill(result[0], job_search)
 
     return home_page()

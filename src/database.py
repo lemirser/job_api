@@ -25,6 +25,7 @@ class User(db.Model):
 class Skills(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(), nullable=False)
+    job_title = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
         return self.name
