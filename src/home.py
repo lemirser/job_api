@@ -1,4 +1,4 @@
-from src.jobs import fetch_job, add_skill, fetch_job_title
+from src.jobs import fetch_job, add_skill
 from flask import Blueprint, render_template, request
 
 home = Blueprint("home", __name__, url_prefix="/")

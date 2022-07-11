@@ -121,7 +121,6 @@ def get_skills():
     sorted_skills = {}
 
     skill_s = Skills.query.all()
-    print(skill_s)
 
     for item in skill_s:
         # if item is in the dict, increment the value, if not set the value to 1
@@ -140,9 +139,7 @@ def get_skills():
     return sorted_skills
 
 
-def fetch_job_title(job_title: str):
-    return job_title
+def get_job_title():
+    result = Skills.query.first()
 
-
-def post_job_title():
-    return fetch_job()
+    return result.job_title
