@@ -19,9 +19,9 @@
         <h1>Job title</h1>
     </div>
     <div id="skills">
-        <h5>Skills filter</h5>
+        <h5>Skills filter</h5><br>
         <form class="row g-3"></form>
-        {% for item, value in skills.items() %}
+        {% for item in skills %}
         <input type="checkbox" id="{{item}}" name="{{item}}" value="{{item}}">
         <label for="{{item}}"> {{item.title()}}</label><br>
         {% endfor %}

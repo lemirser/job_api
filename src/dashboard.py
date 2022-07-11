@@ -8,4 +8,6 @@ dashboard = Blueprint("dashboard", __name__, url_prefix="/")
 def dash_page():
 
     skills = get_skills()
+    # Convert the dictionary into a list with the sorted keys
+    skills = sorted(skills)
     return render_template("dashboard.html", skills=skills)
