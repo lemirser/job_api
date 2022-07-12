@@ -1,4 +1,4 @@
-from src.jobs import fetch_job, add_skill
+from src.jobs import del_skills_data, fetch_job, add_skill
 from flask import Blueprint, render_template, request, redirect, url_for
 
 home = Blueprint("home", __name__, url_prefix="/")
@@ -13,8 +13,10 @@ def home_page():
 @home.post("/")
 def fetch_input():
     """
-    Retrieve the data from the job_post (name) input.
+    Delete the skills data and retrieve the data from the job_post (name) input.
     """
+    del_skills_data()
+
     if request.method == "POST":
         job_search = request.form.get("job_post")
         skill = request.form.get("skills", "")
@@ -29,3 +31,14 @@ def fetch_input():
 
         else:
             return render_template("home.html", result=1)
+
+
+@home.post("/home")
+def redirect_home():
+    """Delete skills data when the user tried to search for a new job.
+
+    Returns:
+        template: Renders the home.html
+    """
+    del_skills_data()
+    return render_template("home.html", result=0)

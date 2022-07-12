@@ -34,10 +34,13 @@
         id="skillChart">
         <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
     </div>
-    <div style="float: right; padding-right:250px">
-        <a class="btn btn-primary mb-3" href="{{url_for('home.home_page')}}">Search another job</a>
 
+    <div style="float: right; padding-right:250px">
+        <form action="{{ url_for('home.redirect_home') }}" method="post">
+            <button type="submit" class="btn btn-primary mb-3">Search for another job</button>
+        </form>
     </div>
+
 
 
     <!-- Optional JavaScript -->

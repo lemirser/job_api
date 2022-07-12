@@ -145,3 +145,9 @@ def get_job_title():
     result = Skills.query.first()
 
     return result.job_title
+
+
+def del_skills_data():
+    Skills.query.delete()
+
+    db.session.commit()
