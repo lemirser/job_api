@@ -15,6 +15,7 @@
 
 <body style="height: 100%">
     <div style="display:flex; align-items: center; height:100%; justify-content: center;">
+
         <form class="row g-3" action='{{url_for("home.fetch_input")}}' method="post">
             <div class="col-auto">
                 <label for="job_post" class="visually-hidden">Job post</label>
@@ -27,8 +28,18 @@
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3">Search</button>
             </div>
+
+            {% if result %}
+
+            <div class="alert alert-danger w-50" role="alert">
+                No result found!
+            </div>
+
+            {% endif %}
         </form>
+
     </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

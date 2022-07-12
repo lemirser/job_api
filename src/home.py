@@ -7,7 +7,7 @@ home = Blueprint("home", __name__, url_prefix="/")
 @home.get("/")
 def home_page():
 
-    return render_template("home.html")
+    return render_template("home.html", result=0)
 
 
 @home.post("/")
@@ -21,6 +21,11 @@ def fetch_input():
 
         result = fetch_job(job_search, skill)
 
-        add_skill(result[0], job_search)
+        if result[0]:
 
-    return redirect(url_for("dashboard.dash_page"))
+            add_skill(result[0], job_search)
+
+            return redirect(url_for("dashboard.dash_page"))
+
+        else:
+            return render_template("home.html", result=1)

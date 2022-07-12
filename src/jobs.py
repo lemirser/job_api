@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify
 from src.database import db, Skills
 import requests
 
-from src.constants.http_status_codes import HTTP_200_OK, HTTP_201_CREATED
+from src.constants.http_status_codes import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND
 
 job_post = Blueprint("jobs", __name__, url_prefix="/api/v1/jobs")
 
@@ -81,6 +81,8 @@ def fetch_job(job_search: str, skill: str):
                 HTTP_200_OK,
             ),
         ]
+    else:
+        return [False, jsonify({"message": "No job post found!"}), HTTP_404_NOT_FOUND]
 
 
 def add_skill(skills, job_title):
