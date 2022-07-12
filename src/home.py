@@ -13,7 +13,7 @@ def home_page():
 @home.post("/")
 def fetch_input():
     """
-    Delete the skills data and retrieve the data from the job_post (name) input.
+    Delete the skills data then retrieve the data from the job_post (name) input.
     """
     del_skills_data()
 

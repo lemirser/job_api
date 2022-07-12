@@ -1,4 +1,3 @@
-import json
 from bs4 import BeautifulSoup
 from flask import Blueprint, jsonify
 from src.database import db, Skills

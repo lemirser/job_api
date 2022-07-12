@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, render_template
+from flask import Flask, jsonify
 import os
 from src.database import db
 from src.auth import auth

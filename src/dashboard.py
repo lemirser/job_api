@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template
 from src.jobs import get_skills, get_job_title
 
 dashboard = Blueprint("dashboard", __name__, url_prefix="/")

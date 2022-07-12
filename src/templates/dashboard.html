@@ -21,11 +21,12 @@
         </div>
 
         <div id="skills">
-            <h5>Skills filter</h5><br>
+            <h5>Top 10 requested skills for {{ job_title }}</h5><br>
             <form class="row g-3"></form>
             {% for item in skills %}
-            <input type="checkbox" id="{{item}}" name="{{item}}" value="{{item}}">
-            <label for="{{item}}"> {{item.title()}}</label><br>
+            <ul>
+                <li>{{item.title()}}</li>
+            </ul>
             {% endfor %}
             </form>
         </div>
@@ -35,7 +36,7 @@
         <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
     </div>
 
-    <div style="float: right; padding-right:250px">
+    <div style="float: right; padding-right:200px; padding-top: 10px">
         <form action="{{ url_for('home.redirect_home') }}" method="post">
             <button type="submit" class="btn btn-primary mb-3">Search for another job</button>
         </form>
