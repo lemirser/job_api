@@ -84,7 +84,7 @@ def fetch_job(job_search: str, skill: str):
         return [False, jsonify({"message": "No job post found!"}), HTTP_404_NOT_FOUND]
 
 
-def add_skill(skills, job_title):
+def add_skill(skills, job_title="data engineer"):
     """Insert skills and job title to the database
 
     Args:

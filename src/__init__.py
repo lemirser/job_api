@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 import os
 from src.database import db
-from src.auth import auth
 from src.jobs import job_post
 from src.home import home
 from src.dashboard import dashboard
@@ -22,7 +21,6 @@ def create_app(test_config=None):
             SQLALCHEMY_DATABASE_URI=os.environ.get("SQLALCHEMY_DB_URI"),
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
             JWT_SECRET_KEY=os.environ.get("JWT_SECRET_KEY"),
-            SWAGGER={"title": "Bookmarks API", "uiversion": 3},
         )
     else:
         app.config.from_mapping(test_config)
@@ -32,7 +30,6 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # Register the blueprints as an endpoint for the API
-    app.register_blueprint(auth)
     app.register_blueprint(job_post)
     app.register_blueprint(home)
     app.register_blueprint(dashboard)

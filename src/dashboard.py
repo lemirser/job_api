@@ -13,4 +13,7 @@ def dash_page():
     skills = sorted(skills)
 
     job_title = get_job_title().title()
-    return render_template("dashboard.html", skills=skills, job_title=job_title, dict_skills=dict_skills)
+    if job_title:
+        return render_template("dashboard.html", skills=skills, job_title=job_title, dict_skills=dict_skills)
+    else:
+        return render_template("dashboard.html", skills=skills, job_title="Data Engineer (default)", dict_skills=dict_skills)
